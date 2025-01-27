@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Draw</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+
+<body>
+    <div class="bar bar-top">
+        <button onclick="undoAction()">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M3.44194 1.44194C3.68602 1.19786 3.68602 0.802136 3.44194 0.558058C3.19786 0.313981 2.80214 0.313981 2.55806 0.558058L3.44194 1.44194ZM1 3L0.558058 2.55806C0.313981 2.80214 0.313981 3.19786 0.558058 3.44194L1 3ZM2.55806 5.44194C2.80214 5.68602 3.19786 5.68602 3.44194 5.44194C3.68602 5.19786 3.68602 4.80214 3.44194 4.55806L2.55806 5.44194ZM5.2667 7.70833C4.92152 7.70833 4.6417 7.98816 4.6417 8.33333C4.6417 8.67851 4.92152 8.95833 5.2667 8.95833V7.70833ZM2.55806 0.558058L0.558058 2.55806L1.44194 3.44194L3.44194 1.44194L2.55806 0.558058ZM0.558058 3.44194L2.55806 5.44194L3.44194 4.55806L1.44194 2.55806L0.558058 3.44194ZM1 3.625H8.33333V2.375H1V3.625ZM10.375 5.66667C10.375 6.79425 9.46091 7.70833 8.33333 7.70833V8.95833C10.1513 8.95833 11.625 7.4846 11.625 5.66667H10.375ZM8.33333 3.625C9.46091 3.625 10.375 4.53909 10.375 5.66667H11.625C11.625 3.84873 10.1513 2.375 8.33333 2.375V3.625ZM5.2667 8.95833H8.33333V7.70833H5.2667V8.95833Z"
+                    fill="black" />
+            </svg>
+        </button>
+        <button onclick="clearCanvas()">Clear all</button>
+    </div>
+
+    <div class="bar">
+        <label for="color-value" class="color-label">
+            <input type="color" id='color-value'>
+        </label>
+        <input type="range" id='size-value' min='1' max='60' value='10'>
+    </div>
+
+    <canvas></canvas>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
