@@ -14,6 +14,7 @@ canvas.height = window.innerHeight
 // FOR MOUSE
 
 canvas.addEventListener('mousedown', () => {
+    presetBarClose()
     isMouseDown = true
 })
 
@@ -119,6 +120,8 @@ function undoAction() {
             drawPath(el[i], el[i].color, el[i].size)
         }
     }
+
+    ctx.beginPath()
 }
 
 
@@ -127,6 +130,7 @@ function undoAction() {
 
 
 function clearCanvas() {
+    presetBarClose()
     ctx.fillStyle = 'white'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -135,11 +139,39 @@ function clearCanvas() {
 }
 
 
-function colorLabel() {
-    document.querySelector('.color-label').style.background = colorInput.value
+function setColorPreset(hex) {
+    colorInput.value = hex
+    colorLabel()
 }
 
-colorInput.addEventListener('change', colorLabel)
+function presetBarClose() {
+    let bar = document.querySelector('.bar-preset')
+
+    if(bar.classList.contains('bar-preset-active')){
+        bar.classList.remove('bar-preset-active')
+    }
+}
+
+function presetBarSwitch() {
+    let bar = document.querySelector('.bar-preset')
+
+    if(!bar.classList.contains('bar-preset-active')){
+        bar.classList.add('bar-preset-active')
+    } else {
+        bar.classList.remove('bar-preset-active')
+    }
+}
+
+document.querySelector('.bar-preset').addEventListener('click', presetBarClose)
+
+function colorLabel() {
+    document.querySelector('.color-preview').style.background = colorInput.value
+}
+
+colorInput.addEventListener('change', () => {
+    colorLabel()
+    presetBarClose()
+})
 colorLabel()
 
 

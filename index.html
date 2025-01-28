@@ -19,14 +19,25 @@
                     fill="black" />
             </svg>
         </button>
-        <button onclick="clearCanvas()">Clear all</button>
+        <button onclick="clearCanvas(); pathList = [];">Clear all</button>
     </div>
 
     <div class="bar">
-        <label for="color-value" class="color-label">
-            <input type="color" id='color-value'>
-        </label>
+        <div class="color-preview" onclick="presetBarSwitch()">
+            <input type="color" id='color-value' value="#2D2D2D">
+        </div>
         <input type="range" id='size-value' min='1' max='60' value='10'>
+    </div>
+
+    <div class="bar bar-preset">
+        <div class="color-preset" onclick='setColorPreset("#FFFFFF")'></div>
+        <div class="color-preset" onclick='setColorPreset("#FF0000")'></div>
+        <div class="color-preset" onclick='setColorPreset("#FFD000")'></div>
+        <div class="color-preset" onclick='setColorPreset("#00D238")'></div>
+        <div class="color-preset" onclick='setColorPreset("#0088FF")'></div>
+        <div class="color-preset" onclick='setColorPreset("#D400FF")'></div>
+        <div class="color-preset" onclick='setColorPreset("#2D2D2D")'></div>
+        <label for="color-value" class="color-label">Custom</label>
     </div>
 
     <canvas></canvas>
