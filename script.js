@@ -286,4 +286,7 @@ document.addEventListener('touchmove', (e) => {
     scale = scale + 0.05
     canvas.style.scale = scale
   }
+
+  xZoomRange = xZoomRangeCurrent
+  yZoomRange = yZoomRangeCurrent
 })
