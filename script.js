@@ -65,7 +65,6 @@ canvas.addEventListener('touchend', (e) => {
     path = []
 
     ctx.beginPath()
-    sizeCircle.style.scale = 1
 })
 
 canvas.addEventListener('touchcancel', (e) => {
@@ -75,8 +74,6 @@ canvas.addEventListener('touchcancel', (e) => {
     path = []
 
     ctx.beginPath()
-
-    sizeCircle.style.scale = 1
 })
 
 canvas.addEventListener('touchmove', (e) => {
@@ -161,8 +158,19 @@ document.addEventListener('mousemove', (e) => {
     changeSize(e)
 })
 
+
+
+
 sizeInput.addEventListener('touchstart', (e) => {
     changeSize(e.changedTouches[0])
+})
+
+sizeInput.addEventListener('touchend', () => {
+    sizeCircle.style.scale = 1
+})
+
+sizeInput.addEventListener('touchcancel', () => {
+    sizeCircle.style.scale = 1
 })
 
 sizeInput.addEventListener('touchmove', (e) => {
