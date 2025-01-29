@@ -259,14 +259,14 @@ colorLabel()
 
 // ZOOM
 
-let scale = 1
+// let scale = 1
 
-function canvasZoom(increase) {
-    if (!increase && scale > 1) {
-        scale = scale - 0.5
-        canvas.style.scale = scale
-    } else if (increase && scale < 4) {
-        scale = scale + 0.5
-        canvas.style.scale = scale
-    }
-}
+// function canvasZoom(increase) {
+//     if (!increase && scale > 1) {
+//         scale = scale - 0.5
+//         canvas.style.scale = scale
+//     } else if (increase && scale < 4) {
+//         scale = scale + 0.5
+//         canvas.style.scale = scale
+//     }
+// }
