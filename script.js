@@ -245,9 +245,12 @@ colorInput.addEventListener('change', () => {
 })
 colorLabel()
 
-let scale = 1;
+
 
 // ZOOM
+
+let xZoomRange, yZoomRange
+let scale = 1
 
 document.addEventListener("wheel", (e) => {
     if (e.deltaY > 0 && scale > 1) {
@@ -258,3 +261,29 @@ document.addEventListener("wheel", (e) => {
         canvas.style.scale = scale
     }
 });
+
+document.addEventListener('touchmove', (e) => {
+  if (e.changedTouches >= 1) {
+    return
+  }
+  
+  let scale = 1;
+  let xZoomRangeCurrent = e.changedTouches[0].clientX - e.changedTouches[1].clientX
+  let yZoomRangeCurrent = e.changedTouches[0].clientY - e.changedTouches[1].clientY
+  
+  if (xZoomRange < xZoomRangeCurrent && scale > 1) {
+    scale = scale - 0.05
+    canvas.style.scale = scale
+  } else if (xZoomRange > xZoomRangeCurrent && scale < 4) {
+    scale = scale + 0.05
+    canvas.style.scale = scale
+  }
+  
+  if (yZoomRange < yZoomRangeCurrent && scale > 1) {
+    scale = scale - 0.05
+    canvas.style.scale = scale
+  } else if (yZoomRange > yZoomRangeCurrent && scale < 4) {
+    scale = scale + 0.05
+    canvas.style.scale = scale
+  }
+})
