@@ -1,10 +1,16 @@
 const canvas = document.querySelector('canvas')
 const colorInput = document.getElementById('color-value')
-const sizeInput = document.getElementById('size-value')
 const ctx = canvas.getContext('2d')
-let isMouseDown = false
+
+const sizeInput = document.querySelector('.size-input')
+const sizeInputCoords = sizeInput.getBoundingClientRect()
+const sizeCircle = document.querySelector('.size-circle')
+
+let canvasActive = false
+let sizeActive = false
 let pathList = []
 let path = []
+let size = 10
 
 
 canvas.width = window.innerWidth
@@ -15,30 +21,33 @@ canvas.height = window.innerHeight
 
 canvas.addEventListener('mousedown', () => {
     presetBarClose()
-    isMouseDown = true
+    canvasActive = true
 })
 
-canvas.addEventListener('mouseup', () => {
-    isMouseDown = false
+document.addEventListener('mouseup', () => {
+    canvasActive = false
+    sizeActive = false
 
     pathList.push(path)
     path = []
 
     ctx.beginPath()
+
+    sizeCircle.style.scale = 1
 })
 
 canvas.addEventListener('mousemove', (e) => {
-    if (isMouseDown) {
+    if (canvasActive) {
         e.preventDefault()
 
         path.push({
             clientX: e.clientX,
             clientY: e.clientY,
             color: colorInput.value,
-            size: sizeInput.value
+            size: size
         })
 
-        drawPath(e, colorInput.value, sizeInput.value)
+        drawPath(e, colorInput.value, size)
     }
 })
 
@@ -53,22 +62,25 @@ canvas.addEventListener('touchstart', (e) => {
 })
 
 
-canvas.addEventListener('touchend', (e) => {
+document.addEventListener('touchend', (e) => {
     e.preventDefault()
 
     pathList.push(path)
     path = []
 
     ctx.beginPath()
+    sizeCircle.style.scale = 1
 })
 
-canvas.addEventListener('touchcancel', (e) => {
+document.addEventListener('touchcancel', (e) => {
     e.preventDefault()
 
     pathList.push(path)
     path = []
 
     ctx.beginPath()
+
+    sizeCircle.style.scale = 1
 })
 
 canvas.addEventListener('touchmove', (e) => {
@@ -78,10 +90,10 @@ canvas.addEventListener('touchmove', (e) => {
         clientX: e.changedTouches[0].clientX,
         clientY: e.changedTouches[0].clientY,
         color: colorInput.value,
-        size: sizeInput.value
+        size: size
     })
 
-    drawPath(e.changedTouches[0], colorInput.value, sizeInput.value)
+    drawPath(e.changedTouches[0], colorInput.value, size)
 })
 
 
@@ -97,8 +109,14 @@ function drawPath(dot, color, size) {
     ctx.stroke()
 
     ctx.beginPath()
-    ctx.arc(dot.clientX, dot.clientY, size, 0, Math.PI * 2)
-    ctx.fill()
+
+    if(size > 2) {
+        ctx.arc(dot.clientX, dot.clientY, size, 0, Math.PI * 2)
+        ctx.fill()
+    }
+
+    console.log(size);
+    
 
     ctx.beginPath()
     ctx.moveTo(dot.clientX, dot.clientY)
@@ -126,6 +144,40 @@ function undoAction() {
 }
 
 
+// SIZE 
+
+sizeInput.addEventListener('mousedown', (e) => {
+    sizeActive = true
+    changeSize(e)
+})
+
+document.addEventListener('mousemove', (e) => {
+    if (!sizeActive) {
+        return
+    }
+    changeSize(e)
+})
+
+sizeInput.addEventListener('touchstart', (e) => {
+    changeSize(e.changedTouches[0])
+})
+
+document.addEventListener('touchmove', (e) => {
+    changeSize(e.changedTouches[0])
+})
+
+function changeSize(e) {
+    let position = e.clientX - sizeInputCoords.x
+
+    if (position > 0 && position < 160) {
+        sizeCircle.style.left = `${position - 12}px`
+        sizeCircle.style.scale = 0.5 + position / 100
+
+        size = Math.max(1, (position - 10) / 2)
+    }
+}
+
+
 // FEATURES
 
 
@@ -148,7 +200,7 @@ function setColorPreset(hex) {
 function presetBarClose() {
     let bar = document.querySelector('.bar-preset')
 
-    if(bar.classList.contains('bar-preset-active')){
+    if (bar.classList.contains('bar-preset-active')) {
         bar.classList.remove('bar-preset-active')
     }
 }
@@ -156,7 +208,7 @@ function presetBarClose() {
 function presetBarSwitch() {
     let bar = document.querySelector('.bar-preset')
 
-    if(!bar.classList.contains('bar-preset-active')){
+    if (!bar.classList.contains('bar-preset-active')) {
         bar.classList.add('bar-preset-active')
     } else {
         bar.classList.remove('bar-preset-active')
