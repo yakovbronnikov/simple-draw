@@ -53,12 +53,18 @@ canvas.addEventListener('mousemove', (e) => {
 // FOR TOUCH
 
 canvas.addEventListener('touchstart', (e) => {
+    if (e.changedTouches.length > 1) {
+        return
+    }
     presetBarClose()
     e.preventDefault()
 })
 
 
 canvas.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length > 1) {
+        return
+    }
     e.preventDefault()
 
     pathList.push(path)
@@ -267,7 +273,7 @@ document.addEventListener("wheel", (e) => {
 });
 
 document.addEventListener('touchmove', (e) => {
-  if (e.changedTouches >= 1) {
+  if (e.changedTouches.length >= 1) {
     return
   }
   
