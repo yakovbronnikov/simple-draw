@@ -22,18 +22,14 @@ canvas.height = window.innerHeight
 canvas.addEventListener('mousedown', () => {
     presetBarClose()
     canvasActive = true
+    ctx.beginPath()
 })
 
-document.addEventListener('mouseup', () => {
-    canvasActive = false
-    sizeActive = false
-
+canvas.addEventListener('mouseup', () => {
     pathList.push(path)
     path = []
 
     ctx.beginPath()
-
-    sizeCircle.style.scale = 1
 })
 
 canvas.addEventListener('mousemove', (e) => {
@@ -62,7 +58,7 @@ canvas.addEventListener('touchstart', (e) => {
 })
 
 
-document.addEventListener('touchend', (e) => {
+canvas.addEventListener('touchend', (e) => {
     e.preventDefault()
 
     pathList.push(path)
@@ -72,7 +68,7 @@ document.addEventListener('touchend', (e) => {
     sizeCircle.style.scale = 1
 })
 
-document.addEventListener('touchcancel', (e) => {
+canvas.addEventListener('touchcancel', (e) => {
     e.preventDefault()
 
     pathList.push(path)
@@ -115,9 +111,6 @@ function drawPath(dot, color, size) {
         ctx.fill()
     }
 
-    console.log(size);
-    
-
     ctx.beginPath()
     ctx.moveTo(dot.clientX, dot.clientY)
 }
@@ -131,9 +124,12 @@ function undoAction() {
     clearCanvas()
 
     pathList.splice(pathList.length - 1, 1)
+
     for (let i = 0; i < pathList.length; i++) {
         let el = pathList[i]
         ctx.beginPath()
+
+        console.log(pathList);
 
         for (let i = 0; i < el.length; i++) {
             drawPath(el[i], el[i].color, el[i].size)
@@ -151,6 +147,13 @@ sizeInput.addEventListener('mousedown', (e) => {
     changeSize(e)
 })
 
+document.addEventListener('mouseup', () => {
+    canvasActive = false
+    sizeActive = false
+
+    sizeCircle.style.scale = 1
+})
+
 document.addEventListener('mousemove', (e) => {
     if (!sizeActive) {
         return
@@ -162,7 +165,7 @@ sizeInput.addEventListener('touchstart', (e) => {
     changeSize(e.changedTouches[0])
 })
 
-document.addEventListener('touchmove', (e) => {
+sizeInput.addEventListener('touchmove', (e) => {
     changeSize(e.changedTouches[0])
 })
 
