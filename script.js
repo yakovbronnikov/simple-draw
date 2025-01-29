@@ -48,6 +48,7 @@ canvas.addEventListener('mousemove', (e) => {
 // FOR TOUCH
 
 canvas.addEventListener('touchstart', (e) => {
+    presetBarClose()
     e.preventDefault()
 })
 
