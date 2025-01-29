@@ -37,8 +37,8 @@ canvas.addEventListener('mousemove', (e) => {
         e.preventDefault()
 
         path.push({
-            clientX: e.clientX,
-            clientY: e.clientY,
+            pageX: e.pageX,
+            pageY: e.pageY,
             color: colorInput.value,
             size: size
         })
@@ -80,8 +80,8 @@ canvas.addEventListener('touchmove', (e) => {
     e.preventDefault()
 
     path.push({
-        clientX: e.changedTouches[0].clientX,
-        clientY: e.changedTouches[0].clientY,
+        pageX: e.changedTouches[0].pageX,
+        pageY: e.changedTouches[0].pageY,
         color: colorInput.value,
         size: size
     })
@@ -98,18 +98,18 @@ function drawPath(dot, color, size) {
     ctx.strokeStyle = color
     ctx.lineWidth = size * 2
 
-    ctx.lineTo(dot.clientX, dot.clientY)
+    ctx.lineTo(dot.pageX, dot.pageY)
     ctx.stroke()
 
     ctx.beginPath()
 
-    if(size > 2) {
-        ctx.arc(dot.clientX, dot.clientY, size, 0, Math.PI * 2)
+    if (size > 2) {
+        ctx.arc(dot.pageX, dot.pageY, size, 0, Math.PI * 2)
         ctx.fill()
     }
 
     ctx.beginPath()
-    ctx.moveTo(dot.clientX, dot.clientY)
+    ctx.moveTo(dot.pageX, dot.pageY)
 }
 
 
@@ -135,6 +135,12 @@ function undoAction() {
 
     ctx.beginPath()
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.getModifierState('Meta') && e.key == 'z') {
+        undoAction()
+    }
+})
 
 
 // SIZE 
@@ -178,7 +184,7 @@ sizeInput.addEventListener('touchmove', (e) => {
 })
 
 function changeSize(e) {
-    let position = e.clientX - sizeInputCoords.x
+    let position = e.pageX - sizeInputCoords.x
 
     if (position > 0 && position < 160) {
         sizeCircle.style.left = `${position - 12}px`
@@ -189,7 +195,7 @@ function changeSize(e) {
 }
 
 
-// FEATURES
+// CLEAR
 
 
 
@@ -202,6 +208,7 @@ function clearCanvas() {
     ctx.fillStyle = colorInput.value
 }
 
+// COLORS
 
 function setColorPreset(hex) {
     colorInput.value = hex
@@ -238,11 +245,16 @@ colorInput.addEventListener('change', () => {
 })
 colorLabel()
 
+let scale = 1;
 
+// ZOOM
 
-
-document.addEventListener('keydown', (e) => {
-    if (e.getModifierState('Meta') && e.key == 'z') {
-        undoAction()
+document.addEventListener("wheel", (e) => {
+    if (e.deltaY > 0 && scale > 1) {
+        scale = scale - 0.1
+        canvas.style.scale = scale
+    } else if (e.deltaY < 0 && scale < 4) {
+        scale = scale + 0.1
+        canvas.style.scale = scale
     }
-})
+});
