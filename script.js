@@ -77,6 +77,10 @@ canvas.addEventListener('touchcancel', (e) => {
 })
 
 canvas.addEventListener('touchmove', (e) => {
+    if (e.changedTouches.length > 1) {
+        return
+    }
+
     e.preventDefault()
 
     path.push({
