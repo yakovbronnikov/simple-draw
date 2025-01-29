@@ -22,6 +22,7 @@
     display: block;
     position: relative;
     z-index: 1;
+    transition: 200ms;
   }
   
   .bar {
@@ -108,7 +109,7 @@
   /* Size */
 
   .size-input {
-    width: 160px;
+    width: 120px;
     height: 12px;
     background: #F0F0F0;
     position: relative;
