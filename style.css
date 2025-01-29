@@ -5,6 +5,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Inter;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
   
   body {
