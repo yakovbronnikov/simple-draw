@@ -66,6 +66,10 @@
     line-height: 18px;
 
   }
+
+  button:nth-child(3) {
+    padding: 5px 8px;
+  }
   
   button:hover,
   .color-label:hover {
@@ -112,14 +116,14 @@
   /* Size */
 
   .size-input {
-    width: 120px;
+    width: 140px;
     height: 12px;
     background: #F0F0F0;
     position: relative;
     display: flex;
     align-items: center;
     border-radius: 12px;
-    margin: 0px 24px 0px 12px;
+    margin: 0px 24px 0px 24px;
   }
   
   .size-circle {

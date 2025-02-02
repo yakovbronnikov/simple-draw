@@ -196,7 +196,7 @@ sizeInput.addEventListener('touchmove', (e) => {
 function changeSize(e) {
     let position = e.pageX - sizeInputCoords.x
 
-    if (position > 0 && position < 120) {
+    if (position > 0 && position < 140) {
         sizeCircle.style.left = `${position - 12}px`
         sizeCircle.style.scale = 0.5 + position / 100
 
@@ -256,17 +256,19 @@ colorInput.addEventListener('change', () => {
 colorLabel()
 
 
+// DOWNLOAD
 
-// ZOOM
+function saveImage(e) {
+    let dataUrl = canvas.toDataURL('image/jpg')
 
-// let scale = 1
+    let link = document.createElement('a')
+    link.href = dataUrl
+    link.download = 'simple_draw.jpg'
 
-// function canvasZoom(increase) {
-//     if (!increase && scale > 1) {
-//         scale = scale - 0.5
-//         canvas.style.scale = scale
-//     } else if (increase && scale < 4) {
-//         scale = scale + 0.5
-//         canvas.style.scale = scale
-//     }
-// }
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+}
+
+
+clearCanvas()
